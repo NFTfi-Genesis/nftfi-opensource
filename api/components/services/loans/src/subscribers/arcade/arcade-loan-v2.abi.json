@@ -1,0 +1,582 @@
+[
+  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "interestRate", "type": "uint256" }],
+    "name": "FIAC_InterestRate",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "collateralAddress", "type": "address" },
+      { "internalType": "uint256", "name": "collateralId", "type": "uint256" }
+    ],
+    "name": "LC_CollateralInUse",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "enum LoanLibrary.LoanState", "name": "state", "type": "uint8" }],
+    "name": "LC_InvalidState",
+    "type": "error"
+  },
+  { "inputs": [], "name": "LC_LoanNotDefaulted", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" },
+      { "internalType": "uint160", "name": "nonce", "type": "uint160" }
+    ],
+    "name": "LC_NonceUsed",
+    "type": "error"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "dueDate", "type": "uint256" }],
+    "name": "LC_NotExpired",
+    "type": "error"
+  },
+  { "inputs": [], "name": "LC_ReusedNote", "type": "error" },
+  { "inputs": [], "name": "LC_ZeroAddress", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "address", "name": "previousAdmin", "type": "address" },
+      { "indexed": false, "internalType": "address", "name": "newAdmin", "type": "address" }
+    ],
+    "name": "AdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": true, "internalType": "address", "name": "beacon", "type": "address" }],
+    "name": "BeaconUpgraded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "address", "name": "token", "type": "address" },
+      { "indexed": false, "internalType": "address", "name": "to", "type": "address" },
+      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "FeesClaimed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "uint256", "name": "loanId", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "repaidAmount", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "remBalance", "type": "uint256" }
+    ],
+    "name": "InstallmentPaymentReceived",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "uint256", "name": "loanId", "type": "uint256" }],
+    "name": "LoanClaimed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "components": [
+          { "internalType": "uint32", "name": "durationSecs", "type": "uint32" },
+          { "internalType": "uint32", "name": "deadline", "type": "uint32" },
+          { "internalType": "uint24", "name": "numInstallments", "type": "uint24" },
+          { "internalType": "uint160", "name": "interestRate", "type": "uint160" },
+          { "internalType": "uint256", "name": "principal", "type": "uint256" },
+          { "internalType": "address", "name": "collateralAddress", "type": "address" },
+          { "internalType": "uint256", "name": "collateralId", "type": "uint256" },
+          { "internalType": "address", "name": "payableCurrency", "type": "address" }
+        ],
+        "indexed": false,
+        "internalType": "struct LoanLibrary.LoanTerms",
+        "name": "terms",
+        "type": "tuple"
+      },
+      { "indexed": false, "internalType": "uint256", "name": "loanId", "type": "uint256" }
+    ],
+    "name": "LoanCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "uint256", "name": "loanId", "type": "uint256" }],
+    "name": "LoanRepaid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "uint256", "name": "oldLoanId", "type": "uint256" },
+      { "indexed": false, "internalType": "uint256", "name": "newLoanId", "type": "uint256" }
+    ],
+    "name": "LoanRolledOver",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": false, "internalType": "uint256", "name": "loanId", "type": "uint256" },
+      { "indexed": false, "internalType": "address", "name": "lender", "type": "address" },
+      { "indexed": false, "internalType": "address", "name": "borrower", "type": "address" }
+    ],
+    "name": "LoanStarted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
+      { "indexed": false, "internalType": "uint160", "name": "nonce", "type": "uint160" }
+    ],
+    "name": "NonceUsed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "indexed": true, "internalType": "bytes32", "name": "previousAdminRole", "type": "bytes32" },
+      { "indexed": true, "internalType": "bytes32", "name": "newAdminRole", "type": "bytes32" }
+    ],
+    "name": "RoleAdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "indexed": true, "internalType": "address", "name": "account", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }
+    ],
+    "name": "RoleGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      { "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "indexed": true, "internalType": "address", "name": "account", "type": "address" },
+      { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }
+    ],
+    "name": "RoleRevoked",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "address", "name": "feeController", "type": "address" }],
+    "name": "SetFeeController",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": false, "internalType": "address", "name": "account", "type": "address" }],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [{ "indexed": true, "internalType": "address", "name": "implementation", "type": "address" }],
+    "name": "Upgraded",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "ADMIN_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "BASIS_POINTS_DENOMINATOR",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DEFAULT_ADMIN_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "FEE_CLAIMER_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "INSTALLMENT_PERIOD_MULTIPLIER",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "INTEREST_RATE_DENOMINATOR",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "LATE_FEE",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "ORIGINATOR_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "REPAYER_ROLE",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "borrowerNote",
+    "outputs": [{ "internalType": "contract IPromissoryNote", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "caller", "type": "address" },
+      { "internalType": "address", "name": "vault", "type": "address" }
+    ],
+    "name": "canCallOn",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint160", "name": "nonce", "type": "uint160" }],
+    "name": "cancelNonce",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "loanId", "type": "uint256" },
+      { "internalType": "uint256", "name": "currentInstallmentPeriod", "type": "uint256" }
+    ],
+    "name": "claim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "contract IERC20Upgradeable", "name": "token", "type": "address" }],
+    "name": "claimFees",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" },
+      { "internalType": "uint160", "name": "nonce", "type": "uint160" }
+    ],
+    "name": "consumeNonce",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "feeController",
+    "outputs": [{ "internalType": "contract IFeeController", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "principal", "type": "uint256" },
+      { "internalType": "uint256", "name": "interestRate", "type": "uint256" }
+    ],
+    "name": "getFullInterestAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "loanId", "type": "uint256" }],
+    "name": "getLoan",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "enum LoanLibrary.LoanState", "name": "state", "type": "uint8" },
+          { "internalType": "uint24", "name": "numInstallmentsPaid", "type": "uint24" },
+          { "internalType": "uint160", "name": "startDate", "type": "uint160" },
+          {
+            "components": [
+              { "internalType": "uint32", "name": "durationSecs", "type": "uint32" },
+              { "internalType": "uint32", "name": "deadline", "type": "uint32" },
+              { "internalType": "uint24", "name": "numInstallments", "type": "uint24" },
+              { "internalType": "uint160", "name": "interestRate", "type": "uint160" },
+              { "internalType": "uint256", "name": "principal", "type": "uint256" },
+              { "internalType": "address", "name": "collateralAddress", "type": "address" },
+              { "internalType": "uint256", "name": "collateralId", "type": "uint256" },
+              { "internalType": "address", "name": "payableCurrency", "type": "address" }
+            ],
+            "internalType": "struct LoanLibrary.LoanTerms",
+            "name": "terms",
+            "type": "tuple"
+          },
+          { "internalType": "uint256", "name": "balance", "type": "uint256" },
+          { "internalType": "uint256", "name": "balancePaid", "type": "uint256" },
+          { "internalType": "uint256", "name": "lateFeesAccrued", "type": "uint256" }
+        ],
+        "internalType": "struct LoanLibrary.LoanData",
+        "name": "loanData",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }],
+    "name": "getRoleAdmin",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "uint256", "name": "index", "type": "uint256" }
+    ],
+    "name": "getRoleMember",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }],
+    "name": "getRoleMemberCount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "grantRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "hasRole",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "contract IFeeController", "name": "_feeController", "type": "address" },
+      { "internalType": "contract IPromissoryNote", "name": "_borrowerNote", "type": "address" },
+      { "internalType": "contract IPromissoryNote", "name": "_lenderNote", "type": "address" }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "user", "type": "address" },
+      { "internalType": "uint160", "name": "nonce", "type": "uint160" }
+    ],
+    "name": "isNonceUsed",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "lenderNote",
+    "outputs": [{ "internalType": "contract IPromissoryNote", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  { "inputs": [], "name": "pause", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proxiableUUID",
+    "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "renounceRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "loanId", "type": "uint256" }],
+    "name": "repay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_loanId", "type": "uint256" },
+      { "internalType": "uint256", "name": "_currentMissedPayments", "type": "uint256" },
+      { "internalType": "uint256", "name": "_paymentToPrincipal", "type": "uint256" },
+      { "internalType": "uint256", "name": "_paymentToInterest", "type": "uint256" },
+      { "internalType": "uint256", "name": "_paymentToLateFees", "type": "uint256" }
+    ],
+    "name": "repayPart",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "bytes32", "name": "role", "type": "bytes32" },
+      { "internalType": "address", "name": "account", "type": "address" }
+    ],
+    "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "oldLoanId", "type": "uint256" },
+      { "internalType": "address", "name": "borrower", "type": "address" },
+      { "internalType": "address", "name": "lender", "type": "address" },
+      {
+        "components": [
+          { "internalType": "uint32", "name": "durationSecs", "type": "uint32" },
+          { "internalType": "uint32", "name": "deadline", "type": "uint32" },
+          { "internalType": "uint24", "name": "numInstallments", "type": "uint24" },
+          { "internalType": "uint160", "name": "interestRate", "type": "uint160" },
+          { "internalType": "uint256", "name": "principal", "type": "uint256" },
+          { "internalType": "address", "name": "collateralAddress", "type": "address" },
+          { "internalType": "uint256", "name": "collateralId", "type": "uint256" },
+          { "internalType": "address", "name": "payableCurrency", "type": "address" }
+        ],
+        "internalType": "struct LoanLibrary.LoanTerms",
+        "name": "terms",
+        "type": "tuple"
+      },
+      { "internalType": "uint256", "name": "_settledAmount", "type": "uint256" },
+      { "internalType": "uint256", "name": "_amountToOldLender", "type": "uint256" },
+      { "internalType": "uint256", "name": "_amountToLender", "type": "uint256" },
+      { "internalType": "uint256", "name": "_amountToBorrower", "type": "uint256" }
+    ],
+    "name": "rollover",
+    "outputs": [{ "internalType": "uint256", "name": "newLoanId", "type": "uint256" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "contract IFeeController", "name": "_newController", "type": "address" }],
+    "name": "setFeeController",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  { "inputs": [], "name": "setLock", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "lender", "type": "address" },
+      { "internalType": "address", "name": "borrower", "type": "address" },
+      {
+        "components": [
+          { "internalType": "uint32", "name": "durationSecs", "type": "uint32" },
+          { "internalType": "uint32", "name": "deadline", "type": "uint32" },
+          { "internalType": "uint24", "name": "numInstallments", "type": "uint24" },
+          { "internalType": "uint160", "name": "interestRate", "type": "uint160" },
+          { "internalType": "uint256", "name": "principal", "type": "uint256" },
+          { "internalType": "address", "name": "collateralAddress", "type": "address" },
+          { "internalType": "uint256", "name": "collateralId", "type": "uint256" },
+          { "internalType": "address", "name": "payableCurrency", "type": "address" }
+        ],
+        "internalType": "struct LoanLibrary.LoanTerms",
+        "name": "terms",
+        "type": "tuple"
+      }
+    ],
+    "name": "startLoan",
+    "outputs": [{ "internalType": "uint256", "name": "loanId", "type": "uint256" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }],
+    "name": "supportsInterface",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  { "inputs": [], "name": "unpause", "outputs": [], "stateMutability": "nonpayable", "type": "function" },
+  {
+    "inputs": [{ "internalType": "address", "name": "newImplementation", "type": "address" }],
+    "name": "upgradeTo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "newImplementation", "type": "address" },
+      { "internalType": "bytes", "name": "data", "type": "bytes" }
+    ],
+    "name": "upgradeToAndCall",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint160", "name": "", "type": "uint160" }
+    ],
+    "name": "usedNonces",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

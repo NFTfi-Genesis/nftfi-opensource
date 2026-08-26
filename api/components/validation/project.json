@@ -1,0 +1,19 @@
+{
+  "name": "validation",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/validation/src",
+  "projectType": "library",
+  "targets": {
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/validation/tsconfig.lib.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

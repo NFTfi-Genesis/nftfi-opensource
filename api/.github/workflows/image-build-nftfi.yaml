@@ -1,0 +1,158 @@
+name: Image Build for NFTfi
+run-name: Build and Deploy to ${{ (inputs.image_tag == 'none' && inputs.custom_image_tag) && inputs.custom_image_tag || inputs.image_tag }}
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'set enviroment name for deploy'
+        type: choice
+        options:
+          - alpha
+          - epsilon
+          - soyuz
+          - apollo-integration
+          - rc
+          - none
+        default: none
+      custom_image_tag:
+        description: 'set custom enviroment name for deploy'
+        default: ''
+        required: false
+
+jobs:
+  set-image-tag:
+    name: set Image tag
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: set image tag
+        id: image-tag
+        run: |
+          if [ ${{inputs.image_tag}} == "none" ] && [ ! -z ${{inputs.custom_image_tag}} ]
+          then
+            echo "IMAGE_TAG=${{inputs.custom_image_tag}}" >> $GITHUB_OUTPUT
+          else
+            echo "IMAGE_TAG=${{inputs.image_tag}}" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      IMAGE_TAG: ${{ steps.image-tag.outputs.IMAGE_TAG }}
+
+  build-base-image:
+    name: Build Base Image
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v4
+      - name: download action src
+        uses: actions/checkout@v4
+        with:
+          repository: NFTfi-Genesis/nftfi.infra.actions
+          ref: main
+          path: actions
+          ssh-key: ${{secrets.ACTIONS_ACCESS_SSH_KEY}}
+      - name: build image
+        uses: ./actions/docker-image-build
+        env:
+          SLACK_NOTIFICATION_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK}}
+        with:
+          context: .
+          dockerfile: ./docker/Dockerfile
+          image_name: sdk-api-base-image
+          image_tag: ${{ github.sha }}
+          no_cache: false
+          push: true
+  openapi-spec-validate:
+    name: OpenAPI validation
+    needs:
+      - build-base-image
+      - set-image-tag
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    if: needs.set-image-tag.outputs.IMAGE_TAG != 'none'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/openapi
+        with:
+          deploy: false
+          environment: ${{ needs.set-image-tag.outputs.IMAGE_TAG }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+
+  build-and-push-sdk-api:
+    name: Build sdk-api
+    needs:
+      - build-base-image
+      - set-image-tag
+      - openapi-spec-validate
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        include:
+          - service: sdk-api-loans
+            arg: SERVICE=loans
+            dockerfile: ./docker/production/Dockerfile
+          - service: sdk-api-accounts
+            arg: SERVICE=accounts
+            dockerfile: ./docker/production/Dockerfile
+          - service: sdk-api-notifications
+            arg: SERVICE=notifications
+            dockerfile: ./docker/production/notifications.Dockerfile
+          - service: sdk-api-offers
+            arg: SERVICE=offers
+            dockerfile: ./docker/production/Dockerfile
+          - service: sdk-api-assets
+            arg: SERVICE=assets
+            dockerfile: ./docker/production/assets.Dockerfile
+    steps:
+      - uses: actions/checkout@v4
+      - name: download action src
+        uses: actions/checkout@v4
+        with:
+          repository: NFTfi-Genesis/nftfi.infra.actions
+          ref: main
+          path: actions
+          ssh-key: ${{secrets.ACTIONS_ACCESS_SSH_KEY}}
+      - name: build image
+        uses: ./actions/docker-image-build
+        env:
+          SLACK_NOTIFICATION_WEBHOOK: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK}}
+        with:
+          context: .
+          dockerfile: ${{ matrix.dockerfile }}
+          image_name: ${{ matrix.service }}
+          build_args: |
+            BASEIMAGE=266735808916.dkr.ecr.us-east-1.amazonaws.com/nftfi/sdk-api-base-image:${{ github.sha }}
+            ${{ matrix.arg }}
+          image_tag: ${{ needs.set-image-tag.outputs.IMAGE_TAG }}
+          no_cache: false
+  openapi-spec:
+    name: OpenAPI
+    needs:
+      - build-and-push-sdk-api
+      - set-image-tag
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    if: needs.set-image-tag.outputs.IMAGE_TAG != 'none'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/openapi
+        with:
+          environment: ${{ needs.set-image-tag.outputs.IMAGE_TAG }}
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}

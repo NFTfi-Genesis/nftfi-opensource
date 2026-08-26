@@ -1,0 +1,74 @@
+name: Continuous Integration
+env:
+  NODE_OPTIONS: '--max_old_space_size=8192'
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  continuous-integration:
+    runs-on:
+      group: nftfi-aws
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js env
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.11.0
+
+      - name: Install deps
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install --frozen-lockfile
+
+      - name: Lint Code
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: lint
+
+      - name: Lint Types
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: lint:types --verbose
+
+      - name: Test
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test --coverage
+
+      - name: Build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build --verbose
+  openapi-spec:
+    name: Generate OpenAPI specification
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js env
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.11.0
+      - name: Install deps
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install --frozen-lockfile
+      - name: build swagger json
+        run: |
+          yarn ci:build:openapi
+          # ADD EP host
+          echo "$(jq '. += {"host": "demo-esp.endpoints.nftfi-v1.cloud.goog"}' swagger.json)" > swagger.json
+      - uses: ./.github/actions/openapi
+        with:
+          build: false
+          deploy: false
+          environment: demo
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}

@@ -1,0 +1,56 @@
+{
+  "name": "services-notifications",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/services/notifications/src",
+  "projectType": "application",
+  "targets": {
+    "init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "chmod +x $NX_WORKSPACE_ROOT/scripts/service-init.sh",
+          "$NX_WORKSPACE_ROOT/scripts/service-init.sh $NX_PROJECT_ROOT"
+        ],
+        "env": {
+          "NX_PROJECT_ROOT": "components/services/notifications"
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/services/notifications/dist",
+        "main": "components/services/notifications/src/main.ts",
+        "tsConfig": "components/services/notifications/tsconfig.json",
+        "webpackConfig": "components/services/webpack.config.js",
+        "babelConfig": ".babelrc",
+        "sourceMap": true
+      },
+      "configurations": {
+        "production": {
+          "generatePackageJson": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "services-notifications:build",
+        "inspect": false
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/services/notifications/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

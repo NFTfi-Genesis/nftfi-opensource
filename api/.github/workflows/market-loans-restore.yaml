@@ -1,0 +1,119 @@
+name: Market Loans Restore
+run-name: Restore Market Loans on ${{ (inputs.image_tag == 'none' && inputs.custom_image_tag) && inputs.custom_image_tag || inputs.image_tag }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Set environment name for deploy'
+        type: choice
+        options:
+          - rc
+          - epsilon
+          - none
+        default: none
+      custom_image_tag:
+        description: 'Custom image tag (used if image_tag is "none")'
+        default: ''
+        required: false
+      protocol:
+        description: 'Protocol'
+        type: choice
+        options:
+          - all
+          - nftfi
+          - arcade
+          - gondi
+          - blur
+        default: all
+env:
+  VAULT_ADDR: 'https://vault.nftfi.com'
+
+jobs:
+  set-image-tag:
+    name: Set Image Tag
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Set image tag
+        id: image-tag
+        run: |
+          if [[ "${{ inputs.image_tag }}" == "none" && -n "${{ inputs.custom_image_tag }}" ]]; then
+            echo "IMAGE_TAG=${{ inputs.custom_image_tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "IMAGE_TAG=${{ inputs.image_tag }}" >> $GITHUB_OUTPUT
+          fi
+    outputs:
+      IMAGE_TAG: ${{ steps.image-tag.outputs.IMAGE_TAG }}
+
+  market-loans-restorer:
+    name: Market Loans Restorer
+    needs:
+      - set-image-tag
+    runs-on:
+      group: nftfi-aws
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup vault
+        uses: eLco/setup-vault@v1
+        with:
+          vault_version: 1.19.1
+      - name: vault login
+        run: |
+          vault login -method=userpass -no-print username=${{ secrets.VAULT_USERNAME }} password=${{ secrets.VAULT_PASSWORD }}
+      - name: setup env variables
+        run: |
+          # retrieve secrets
+          SECRET_VARS=(ALCHEMY_API_KEY EXTERNAL_POSTGRES_URI NFTFI_API_URL)
+          if [ ${{ needs.set-image-tag.outputs.IMAGE_TAG }} == "none" ]
+          then
+            SECRET_BODY=$(vault kv get -format=json kv/dev/demo | jq '.data.data')
+
+          elif [ ${{ needs.set-image-tag.outputs.IMAGE_TAG }} == "prod" ]
+          then
+            SECRET_BODY=$(vault kv get -format=json kv/prod/${{ needs.set-image-tag.outputs.IMAGE_TAG }} | jq '.data.data')
+
+          else
+            SECRET_BODY=$(vault kv get -format=json kv/dev/${{ needs.set-image-tag.outputs.IMAGE_TAG }} | jq '.data.data')
+          fi
+          for var in "${SECRET_VARS[@]}"
+          do
+            echo "${var}=$(echo $SECRET_BODY | jq -r ".${var}")" >> $GITHUB_ENV
+            echo "::add-mask::$(echo $SECRET_BODY | jq -r ".${var}")"
+          done
+      - name: Setup Node.js env
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.11.0
+
+      - name: Install deps
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install --frozen-lockfile
+
+      - name: Build protocol flags
+        id: protocol-flags
+        run: |
+          if [[ "${{ inputs.protocol }}" == "all" ]]; then
+            echo "FLAGS=--protocol=arcade --protocol=gondi --protocol=nftfi" >> $GITHUB_OUTPUT
+          else
+            echo "FLAGS=--protocol=${{ inputs.protocol }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Market-Loans restorer
+        shell: bash
+        run: |
+          yarn nx build market-loans-restorer \
+          && node components/tools/market-loans-restorer/dist/main.js \
+            --label=${{ inputs.protocol }} \
+            ${{ steps.protocol-flags.outputs.FLAGS }} \
+            --db-uri="${{ env.EXTERNAL_POSTGRES_URI }}" \
+            --cache-uri="redis://redis-sdk-api-cache-${{ needs.set-image-tag.outputs.IMAGE_TAG }}.nftfi.com:6379" \
+            --ethereum-provider-uri="https://eth-mainnet.g.alchemy.com/v2/${{ env.ALCHEMY_API_KEY }}" \
+            --api-url="${{ env.NFTFI_API_URL }}"

@@ -1,0 +1,56 @@
+{
+  "name": "services-loans",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/services/loans/src",
+  "projectType": "application",
+  "targets": {
+    "init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "chmod +x $NX_WORKSPACE_ROOT/scripts/service-init.sh",
+          "$NX_WORKSPACE_ROOT/scripts/service-init.sh $NX_PROJECT_ROOT"
+        ],
+        "env": {
+          "NX_PROJECT_ROOT": "components/services/loans"
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/services/loans/dist",
+        "main": "components/services/loans/src/main.ts",
+        "tsConfig": "components/services/loans/tsconfig.json",
+        "webpackConfig": "components/services/webpack.config.js",
+        "babelConfig": ".babelrc",
+        "sourceMap": true
+      },
+      "configurations": {
+        "production": {
+          "generatePackageJson": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "services-loans:build",
+        "inspect": false
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/services/loans/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

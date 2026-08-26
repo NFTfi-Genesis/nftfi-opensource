@@ -1,0 +1,54 @@
+{
+  "name": "token-unstaking-guide-generator",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/tools/token-unstaking-guide-generator/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/tools/token-unstaking-guide-generator/dist",
+        "main": "components/tools/token-unstaking-guide-generator/src/main.ts",
+        "tsConfig": "components/tools/token-unstaking-guide-generator/tsconfig.json",
+        "webpackConfig": "components/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "token-unstaking-guide-generator:build",
+        "inspect": false,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "token-unstaking-guide-generator:build:development"
+        },
+        "production": {
+          "buildTarget": "token-unstaking-guide-generator:build:production"
+        }
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/tools/token-unstaking-guide-generator/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

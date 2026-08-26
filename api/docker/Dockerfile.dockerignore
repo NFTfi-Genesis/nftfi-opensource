@@ -1,0 +1,8 @@
+.github
+.nx
+cloudbuild.yaml
+dist
+tmp
+coverage
+node_modules
+*.log

@@ -1,0 +1,366 @@
+{{> header title="Offers summary" logoUrl=logoUrl walletUrl=walletUrl walletAddress=borrower }}
+
+{{#each assetOfferGroups}}
+<table class="row h-align-left v-align-middle" border="0" cellpadding="0" cellspacing="0" role="presentation"
+    style="border-collapse: collapse;width: 100%;">
+    <tbody>
+        <tr>
+            <td class="row-content"
+                style="background: #f4f3f8;vertical-align: top;background-color: #f4f3f8;border-radius: 20px;text-align: left;">
+                <div class="col col-4 col-sm-12"
+                    style="text-align: left;display: inline-block;width: 33%;max-width: 33.33%;vertical-align: middle;">
+                    <table class="ms-t1 col-table" width="100%" border="0" cellpadding="0" cellspacing="0"
+                        role="presentation" style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                        <tbody>
+                            <tr>
+                                <td class="col-content p-sm-10px pr-sm-20px pl-sm-20px pt-sm-20px"
+                                    style="vertical-align: top;padding-left: 40px;padding-top: 40px;padding-bottom: 30px;">
+                                    <img class="img-fluid w-sm-100per"
+                                        style="display: block;height: auto;width: 320px;border-width: 10.5px;border-radius: 10px;max-width: 100%;"
+                                        src="{{ this.imagePreviewUrl }}">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col col-8 col-sm-12"
+                    style="text-align: left;display: inline-block;width: 66%;max-width: 66%;vertical-align: middle;">
+                    <table class="ms-t1 col-table" width="100%" border="0" cellpadding="0" cellspacing="0"
+                        role="presentation" style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                        <tbody>
+                            <tr>
+                                <td class="col-content pr-sm-20px pl-sm-20px"
+                                    style="vertical-align: top;padding-right: 30px;padding-left: 30px;">
+                                    <table class="row h-align-left v-align-top" border="0" cellpadding="0"
+                                        cellspacing="0" role="presentation"
+                                        style="border-collapse: collapse;width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="row-content" style="vertical-align: top;text-align: left;">
+                                                    <div class="col col-12"
+                                                        style="text-align: left;display: inline-block;width: 100%;max-width: 100%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content"
+                                                                        style="vertical-align: top;padding-bottom: 20px;">
+                                                                        <h1
+                                                                            style="font-weight: bold;margin: 0 0 10px 0;mso-line-height-rule: exactly;font-size: 175%;margin-bottom: 0px;">
+                                                                            <strong><span
+                                                                                    style="color: rgb(22, 21, 45);">{{assetName}}</span></strong>
+                                                                        </h1><a href="#"
+                                                                            style="text-decoration: none;color: #7e5bd6;">{{assetCategory}}</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col col-12"
+                    style="text-align: left;display: inline-block;width: 100%;max-width: 100%;vertical-align: middle;">
+                    <table class="ms-t1 col-table" width="100%" border="0" cellpadding="0" cellspacing="0"
+                        role="presentation" style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                        <tbody>
+                            <tr>
+                                <td class="col-content pr-sm-10px pl-sm-10px"
+                                    style="vertical-align: top;padding-right: 30px;padding-left: 30px;">
+                                    {{#each this.offers}}
+                                    <table class="row h-align-center v-align-top" border="0" cellpadding="0"
+                                        cellspacing="0" role="presentation"
+                                        style="border-collapse: collapse;width: 100%;height: 10px;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="row-content"
+                                                    style="vertical-align: top;height: 10px;text-align: center;">
+                                                    <div class="col col-12 col-sm-12"
+                                                        style="text-align: left;display: inline-block;width: 100%;max-width: 100%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pt-sm-0px pb-sm-10px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 0px;padding-top: 10px;height: 10px;">
+                                                                        <table class="ms-t1 box" role="presentation"
+                                                                            border="0" cellpadding="0" cellspacing="0"
+                                                                            style="border-collapse: collapse;">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <table role="presentation"
+                                                                                            border="0" cellpadding="0"
+                                                                                            cellspacing="0"
+                                                                                            style="border-collapse: collapse;width: 100%;"
+                                                                                            class="ms-t1">
+                                                                                            <tbody>
+                                                                                                <tr>
+                                                                                                    <td class="box-content"
+                                                                                                        align="left"
+                                                                                                        style="background: #8f8f99;padding: 10px;background-color: #8f8f99;padding-top: 2px;padding-bottom: 2px;border-radius: 5px;">
+                                                                                                        <small
+                                                                                                            style="color: #ffffff;">Offer
+                                                                                                            {{this.offerId}}</small>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </tbody>
+                                                                                        </table>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="row h-align-center v-align-top" border="0" cellpadding="0"
+                                        cellspacing="0" role="presentation"
+                                        style="border-collapse: collapse;width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="row-content" style="vertical-align: top;text-align: center;">
+                                                    <div class="col col-3 col-sm-6"
+                                                        style="text-align: left;display: inline-block;width: 24%;max-width: 24%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pt-sm-0px pb-sm-0px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 0px;padding-top: 0px;">
+                                                                        <small style="color: #8e969f;">For</small>
+                                                                        <p
+                                                                            style="margin: 0 0 10px 0;mso-line-height-rule: exactly;">
+                                                                            <strong>{{this.principal}}
+                                                                                {{this.currency.ticker}}</strong>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col col-3 col-sm-6"
+                                                        style="text-align: left;display: inline-block;width: 24%;max-width: 24%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pt-sm-0px pb-sm-0px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 0px;padding-top: 0px;">
+                                                                        <small style="color: #8e969f;">APR</small>
+                                                                        <p
+                                                                            style="margin: 0 0 10px 0;mso-line-height-rule: exactly;">
+                                                                            <strong>{{formatAPR this.apr}}</strong>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col col-3 col-sm-6"
+                                                        style="text-align: left;display: inline-block;width: 24%;max-width: 24%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pt-sm-0px pb-sm-0px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 0px;padding-top: 0px;">
+                                                                        <small style="color: #8e969f;">Over</small>
+                                                                        <p
+                                                                            style="margin: 0 0 10px 0;mso-line-height-rule: exactly;">
+                                                                            <strong>{{this.durationDays}} Days</strong>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col col-3 col-sm-6"
+                                                        style="text-align: left;display: inline-block;width: 24%;max-width: 24%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pt-sm-0px pb-sm-0px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 0px;padding-top: 0px;">
+                                                                        <small style="color: #8e969f;">Repayment</small>
+                                                                        <p
+                                                                            style="margin: 0 0 10px 0;mso-line-height-rule: exactly;">
+                                                                            <strong>{{this.repayment}}
+                                                                                {{this.currency.ticker}}</strong>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="row h-align-center v-align-top" border="0" cellpadding="0"
+                                        cellspacing="0" role="presentation"
+                                        style="border-collapse: collapse;width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="row-content" style="vertical-align: top;text-align: center;">
+                                                    <div class="col col-6 col-sm-12"
+                                                        style="text-align: left;display: inline-block;width: 48%;max-width: 48%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pt-sm-0px pb-sm-0px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 00px;padding-top: 0px;">
+                                                                        <small style="color: #8e969f;">Expires</small>
+                                                                        <p
+                                                                            style="margin: 0 0 10px 0;mso-line-height-rule: exactly;">
+                                                                            <strong>{{this.dueDate}}</strong>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="col col-6 col-sm-12"
+                                                        style="text-align: left;display: inline-block;width: 48%;max-width: 48%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pb-sm-20px pt-sm-0px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 00px;padding-top: 0px;">
+                                                                        <small style="color: #8e969f;">From</small>
+                                                                        <p
+                                                                            style="margin: 0 0 10px 0;mso-line-height-rule: exactly;">
+                                                                            <strong><span
+                                                                                    style="text-decoration: underline;">{{ compactAddress this.lender}}</span></strong>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    {{/each}}
+                                    <table class="row h-align-center v-align-top" border="0" cellpadding="0"
+                                        cellspacing="0" role="presentation"
+                                        style="border-collapse: collapse;width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="row-content" style="vertical-align: top;text-align: center;">
+                                                    <div class="col col-6 col-sm-12"
+                                                        style="text-align: left;display: inline-block;width: 50%;max-width: 50%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pb-sm-20px pt-sm-0px"
+                                                                        style="vertical-align: top;padding-right: 10px;padding-left: 10px;padding-top: 10px;padding-bottom: 20px;">
+                                                                        <table
+                                                                            class="ms-t2 btn btn-primary btn-md btn-rect"
+                                                                            style="font-family: Roboto, sans-serif;width: 100%;border-collapse: separate;"
+                                                                            border="0" cellpadding="0" cellspacing="0"
+                                                                            role="presentation">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td class="btn-content"
+                                                                                        style="background: #7e5bd6;padding: 10px 20px;border: none;cursor: pointer;text-align: center;vertical-align: middle;font-weight: 800;border-radius: 0;background-color: #7e5bd6;">
+                                                                                        <a href="{{ this.assetUrl }}"
+                                                                                            style="text-decoration: none;color: #fff;"><strong>View
+                                                                                                {{this.totalOffers}}
+                                                                                                offers</strong></a>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    {{#if @last}}
+                                    <table class="row h-align-left v-align-top" border="0" cellpadding="0"
+                                        cellspacing="0" role="presentation"
+                                        style="border-collapse: collapse;width: 100%;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="row-content" style="vertical-align: top;text-align: left;">
+                                                    <div class="col col-12 col-sm-12"
+                                                        style="text-align: left;display: inline-block;width: 100%;max-width: 100%;vertical-align: top;">
+                                                        <table class="ms-t1 col-table" width="100%" border="0"
+                                                            cellpadding="0" cellspacing="0" role="presentation"
+                                                            style="border-collapse: collapse;width: 100%;vertical-align: top;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="col-content pb-sm-20px pt-sm-0px"
+                                                                        style="vertical-align: top;padding: 10px;padding-bottom: 20px;padding-top: 10px;padding-right: 10px;padding-left: 10px;">
+                                                                        <p class="text-center"
+                                                                            style="margin: 0 0 10px 0;mso-line-height-rule: exactly;text-align: center;">
+                                                                            <strong>Please note: </strong>do not rely
+                                                                            solely on email notifications to get
+                                                                            information about your loans. <br><br>Start
+                                                                            using calendar notifications, <a href="#"
+                                                                                style="text-decoration: none;color: #0a6fe4;"><span
+                                                                                    style="color: rgb(126, 91, 214);">learn
+                                                                                    more here</span></a>.</p>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    {{/if}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+{{#unless @last}}
+<table class="ms-t1 spacer" role="presentation" border="0" cellpadding="0" cellspacing="0"
+  style="border-collapse: collapse;width: 100%;height: 20px;">
+  <tbody>
+    <tr>
+      <td width="100%" height="20"></td>
+    </tr>
+  </tbody>
+</table>
+{{/unless}}
+{{/each}}
+
+{{> footer url=nftfiUrl twitterUrl=twitterUrl discordUrl=discordUrl }}

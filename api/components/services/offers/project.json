@@ -1,0 +1,56 @@
+{
+  "name": "services-offers",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/services/offers/src",
+  "projectType": "application",
+  "targets": {
+    "init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "chmod +x $NX_WORKSPACE_ROOT/scripts/service-init.sh",
+          "$NX_WORKSPACE_ROOT/scripts/service-init.sh $NX_PROJECT_ROOT"
+        ],
+        "env": {
+          "NX_PROJECT_ROOT": "components/services/offers"
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/services/offers/dist",
+        "main": "components/services/offers/src/main.ts",
+        "tsConfig": "components/services/offers/tsconfig.json",
+        "webpackConfig": "components/services/webpack.config.js",
+        "babelConfig": ".babelrc",
+        "sourceMap": true
+      },
+      "configurations": {
+        "production": {
+          "generatePackageJson": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "services-offers:build",
+        "inspect": false
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/services/offers/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

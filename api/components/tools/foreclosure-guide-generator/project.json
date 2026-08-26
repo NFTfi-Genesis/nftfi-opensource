@@ -1,0 +1,54 @@
+{
+  "name": "foreclosure-guide-generator",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/tools/foreclosure-guide-generator/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/tools/foreclosure-guide-generator/dist",
+        "main": "components/tools/foreclosure-guide-generator/src/main.ts",
+        "tsConfig": "components/tools/foreclosure-guide-generator/tsconfig.json",
+        "webpackConfig": "components/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "foreclosure-guide-generator:build",
+        "inspect": false,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "foreclosure-guide-generator:build:development"
+        },
+        "production": {
+          "buildTarget": "foreclosure-guide-generator:build:production"
+        }
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/tools/foreclosure-guide-generator/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

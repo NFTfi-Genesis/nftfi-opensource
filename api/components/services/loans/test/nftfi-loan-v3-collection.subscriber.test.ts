@@ -1,0 +1,199 @@
+import { Test } from '@nestjs/testing';
+import { buildContract } from 'components/modules/test/ethers-observer/factories/contract.factory';
+import { NftfiLoanService } from '../src/subscribers/nftfi/nftfi-loan.service';
+import {
+  NftfiLoanV3CollectionContract,
+  NftfiLoanV3CollectionSubscriber
+} from '../src/subscribers/nftfi/loan-v3-collection';
+
+jest.mock('@ethersproject/contracts', () => ({
+  Contract: class {}
+}));
+
+describe(NftfiLoanV3CollectionSubscriber.name, () => {
+  let subscriber: NftfiLoanV3CollectionSubscriber;
+  let loanService: NftfiLoanService;
+
+  beforeEach(async () => {
+    jest.resetAllMocks();
+
+    const moduleRef = await Test.createTestingModule({
+      providers: [
+        NftfiLoanV3CollectionSubscriber,
+        {
+          provide: NftfiLoanService,
+          useValue: {
+            createV3: jest.fn(),
+            renegotiate: jest.fn(),
+            repay: jest.fn(),
+            liquidate: jest.fn()
+          }
+        }
+      ]
+    }).compile();
+
+    subscriber = moduleRef.get(NftfiLoanV3CollectionSubscriber);
+    loanService = moduleRef.get(NftfiLoanService);
+  });
+
+  describe(NftfiLoanV3CollectionSubscriber.prototype.onLoanStarted.name, () => {
+    it('calls createV3 with normalized payload and metadata', async () => {
+      const fnCreate = jest.spyOn(loanService, 'createV3').mockResolvedValueOnce(undefined);
+      const contract = buildContract() as NftfiLoanV3CollectionContract;
+
+      await subscriber.onLoanStarted(
+        {
+          loanId: '1',
+          lender: '0xlender',
+          borrower: '0xborrower',
+          loanTerms: {
+            loanStartTime: '1234567890',
+            loanDuration: 3600,
+            loanPrincipalAmount: '1000',
+            maximumRepaymentAmount: '1100',
+            loanAdminFeeInBasisPoints: 250,
+            loanInterestRateForDurationInBasisPoints: 0,
+            originationFee: '10',
+            loanERC20Denomination: '0xerc20',
+            nftCollateralContract: '0xnft',
+            nftCollateralId: '123',
+            nftCollateralWrapper: '0xwrapper',
+            borrower: '0xborrower',
+            lender: '0xlender',
+            escrow: '0xescrow',
+            isProRata: true
+          }
+        },
+        'event-1',
+        '0xtx',
+        42,
+        '0xcontract'
+      );
+
+      expect(fnCreate).toHaveBeenCalledTimes(1);
+      expect(fnCreate).toHaveBeenCalledWith(
+        {
+          loanId: '1',
+          lender: '0xlender',
+          borrower: '0xborrower',
+          loanStartTime: '1234567890',
+          loanDuration: 3600,
+          loanPrincipalAmount: '1000',
+          maximumRepaymentAmount: '1100',
+          loanAdminFeeInBasisPoints: 250,
+          originationFee: '10',
+          loanERC20Denomination: '0xerc20',
+          nftCollateralContract: '0xnft',
+          nftCollateralId: '123',
+          isProRata: true
+        },
+        { eventId: 'event-1', blockNumber: 42, contract: '0xcontract', tx: '0xtx' }
+      );
+      void contract;
+    });
+  });
+
+  describe(NftfiLoanV3CollectionSubscriber.prototype.onLoanRenegotiated.name, () => {
+    it('calls renegotiate with payload and metadata', async () => {
+      const fnRenegotiate = jest.spyOn(loanService, 'renegotiate').mockResolvedValueOnce(undefined);
+      const emittedAt = new Date('2025-01-01T00:00:00Z');
+
+      await subscriber.onLoanRenegotiated(
+        {
+          loanId: '1',
+          newMaximumRepaymentAmount: '1200',
+          newLoanDuration: 7200,
+          renegotiationFee: '0',
+          renegotiationAdminFee: '0',
+          borrower: '0xborrower',
+          lender: '0xlender',
+          isProRata: false
+        },
+        'event-2',
+        emittedAt,
+        500,
+        '0xcontract'
+      );
+
+      expect(fnRenegotiate).toHaveBeenCalledTimes(1);
+      expect(fnRenegotiate).toHaveBeenCalledWith(
+        {
+          loanId: '1',
+          newMaximumRepaymentAmount: '1200',
+          newLoanDuration: 7200,
+          isProRata: false
+        },
+        { eventId: 'event-2', contract: '0xcontract', emittedAt, blockNumber: 500 }
+      );
+    });
+  });
+
+  describe(NftfiLoanV3CollectionSubscriber.prototype.onLoanLiquidated.name, () => {
+    it('calls liquidate with payload and metadata', async () => {
+      const fnLiquidate = jest.spyOn(loanService, 'liquidate').mockResolvedValueOnce(undefined);
+      const emittedAt = new Date('2025-01-01T00:00:00Z');
+
+      await subscriber.onLoanLiquidated(
+        {
+          loanId: '1',
+          borrower: '0xborrower',
+          lender: '0xlender',
+          loanPrincipalAmount: '1000',
+          nftCollateralId: '123',
+          loanMaturityDate: '1700000000',
+          loanLiquidationDate: '1700001000',
+          nftCollateralContract: '0xnft'
+        },
+        'event-3',
+        '0xtx',
+        emittedAt,
+        500,
+        '0xcontract'
+      );
+
+      expect(fnLiquidate).toHaveBeenCalledTimes(1);
+      expect(fnLiquidate).toHaveBeenCalledWith(
+        { loanId: '1' },
+        { eventId: 'event-3', contract: '0xcontract', tx: '0xtx', emittedAt, blockNumber: 500 }
+      );
+    });
+  });
+
+  describe(NftfiLoanV3CollectionSubscriber.prototype.onLoanRepaid.name, () => {
+    it('calls repay with payload and metadata', async () => {
+      const fnRepay = jest.spyOn(loanService, 'repay').mockResolvedValueOnce(undefined);
+      const emittedAt = new Date('2025-01-01T00:00:00Z');
+
+      await subscriber.onLoanRepaid(
+        {
+          loanId: '1',
+          borrower: '0xborrower',
+          lender: '0xlender',
+          adminFee: '5',
+          loanPrincipalAmount: '1000',
+          amountPaidToLender: '1100',
+          loanERC20Denomination: '0xerc20',
+          nftCollateralContract: '0xnft',
+          nftCollateralId: '123'
+        },
+        'event-4',
+        '0xtx',
+        emittedAt,
+        42,
+        '0xcontract'
+      );
+
+      expect(fnRepay).toHaveBeenCalledTimes(1);
+      expect(fnRepay).toHaveBeenCalledWith(
+        {
+          loanId: '1',
+          borrower: '0xborrower',
+          adminFee: '5',
+          loanPrincipalAmount: '1000',
+          amountPaidToLender: '1100'
+        },
+        { eventId: 'event-4', contract: '0xcontract', blockNumber: 42, tx: '0xtx', emittedAt }
+      );
+    });
+  });
+});

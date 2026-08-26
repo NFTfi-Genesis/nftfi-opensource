@@ -1,0 +1,39 @@
+{
+  "name": "tools-api-discovery-dumper",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/tools/api-discovery-dumper/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/tools/api-discovery-dumper/dist",
+        "main": "components/tools/api-discovery-dumper/src/main.ts",
+        "tsConfig": "components/tools/api-discovery-dumper/tsconfig.json",
+        "webpackConfig": "components/webpack.config.js"
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "tools-api-discovery-dumper:build",
+        "inspect": false,
+        "watch": false
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/tools/api-discovery-dumper/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

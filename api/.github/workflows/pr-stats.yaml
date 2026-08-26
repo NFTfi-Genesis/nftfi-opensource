@@ -1,0 +1,153 @@
+name: PR Authorship Stats
+
+on:
+  workflow_dispatch:
+    inputs:
+      period:
+        description: "Time period to analyze"
+        required: true
+        type: choice
+        options:
+          - week
+          - month
+          - all
+      base_branch:
+        description: "Base branch to check merged PRs against"
+        required: true
+        default: "main"
+        type: string
+
+jobs:
+  stats:
+    runs-on:
+      group: nftfi-aws
+    steps:
+      - name: Analyze merged PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PERIOD: ${{ inputs.period }}
+          BASE_BRANCH: ${{ inputs.base_branch }}
+        run: |
+          set -euo pipefail
+
+          REPO="${{ github.repository }}"
+          TRACKING_START="2026-03-20"
+
+          # Determine date range
+          case "$PERIOD" in
+            week)
+              SINCE=$(date -u -d "7 days ago" +%Y-%m-%d)
+              ;;
+            month)
+              SINCE=$(date -u -d "30 days ago" +%Y-%m-%d)
+              ;;
+            all)
+              SINCE="$TRACKING_START"
+              ;;
+          esac
+          UNTIL=$(date -u +%Y-%m-%d)
+
+          echo "Analyzing PRs merged between $SINCE and $UNTIL on branch $BASE_BRANCH"
+
+          # Fetch merged PRs in the period
+          PRS=$(gh pr list \
+            --repo "$REPO" \
+            --base "$BASE_BRANCH" \
+            --state merged \
+            --json number,title,mergedAt \
+            --limit 500 \
+            --jq "[.[] | select(.mergedAt >= \"${SINCE}T00:00:00Z\" and .mergedAt <= \"${UNTIL}T23:59:59Z\")]")
+
+          PR_COUNT=$(echo "$PRS" | jq 'length')
+
+          if [ "$PR_COUNT" -eq 0 ]; then
+            {
+              echo "## PR Authorship Stats"
+              echo ""
+              echo "**Period:** $PERIOD ($SINCE → $UNTIL) | **Branch:** $BASE_BRANCH"
+              echo ""
+              echo "No merged PRs found in this period."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # Initialize counters
+          TOTAL_AI=0
+          TOTAL_HUMAN=0
+          FULL_AI_PRS=0
+          FULL_HUMAN_PRS=0
+          MIXED_PRS=0
+          TABLE_ROWS=""
+
+          for ROW in $(echo "$PRS" | jq -r '.[] | @base64'); do
+            PR_NUMBER=$(echo "$ROW" | base64 -d | jq -r '.number')
+            PR_TITLE=$(echo "$ROW" | base64 -d | jq -r '.title')
+
+            # Use jq to classify commits directly from API JSON
+            # Each commit message is a separate JSON string — no multiline parsing needed
+            COUNTS=$(gh api "repos/$REPO/pulls/$PR_NUMBER/commits" --paginate \
+              --jq '[.[].commit.message] | {
+                ai: [.[] | select(test("co-authored-by:.*claude"; "i"))] | length,
+                human: [.[] | select(test("co-authored-by:.*claude"; "i") | not)] | length
+              }')
+
+            AI_COUNT=$(echo "$COUNTS" | jq '.ai')
+            HUMAN_COUNT=$(echo "$COUNTS" | jq '.human')
+            COMMIT_TOTAL=$((AI_COUNT + HUMAN_COUNT))
+
+            TOTAL_AI=$((TOTAL_AI + AI_COUNT))
+            TOTAL_HUMAN=$((TOTAL_HUMAN + HUMAN_COUNT))
+
+            # Classification
+            if [ "$HUMAN_COUNT" -eq 0 ] && [ "$AI_COUNT" -gt 0 ]; then
+              CLASSIFICATION="Full AI"
+              FULL_AI_PRS=$((FULL_AI_PRS + 1))
+            elif [ "$AI_COUNT" -eq 0 ] && [ "$HUMAN_COUNT" -gt 0 ]; then
+              CLASSIFICATION="Full Human"
+              FULL_HUMAN_PRS=$((FULL_HUMAN_PRS + 1))
+            elif [ "$COMMIT_TOTAL" -gt 0 ]; then
+              AI_PCT=$((AI_COUNT * 100 / COMMIT_TOTAL))
+              CLASSIFICATION="Mixed (${AI_PCT}% AI)"
+              MIXED_PRS=$((MIXED_PRS + 1))
+            fi
+
+            SHORT_TITLE=$(echo "$PR_TITLE" | cut -c1-50)
+            PR_LINK="[#${PR_NUMBER}](https://github.com/${REPO}/pull/${PR_NUMBER})"
+            TABLE_ROWS="${TABLE_ROWS}| ${PR_LINK} | ${SHORT_TITLE} | ${COMMIT_TOTAL} | ${AI_COUNT} | ${HUMAN_COUNT} | ${CLASSIFICATION} |
+          "
+          done
+
+          # Compute totals
+          TOTAL_COMMITS=$((TOTAL_AI + TOTAL_HUMAN))
+          if [ "$TOTAL_COMMITS" -gt 0 ]; then
+            AI_TOTAL_PCT=$((TOTAL_AI * 100 / TOTAL_COMMITS))
+            HUMAN_TOTAL_PCT=$((TOTAL_HUMAN * 100 / TOTAL_COMMITS))
+          else
+            AI_TOTAL_PCT=0
+            HUMAN_TOTAL_PCT=0
+          fi
+
+          # Write Job Summary
+          {
+            echo "## PR Authorship Stats"
+            echo ""
+            echo "**Period:** $PERIOD ($SINCE → $UNTIL) | **Branch:** $BASE_BRANCH"
+            echo ""
+            echo "### Per-PR Breakdown"
+            echo ""
+            echo "| PR | Title | Total | AI | Human | Classification |"
+            echo "|----|-------|-------|----|-------|----------------|"
+            echo "$TABLE_ROWS"
+            echo ""
+            echo "### Rollup"
+            echo ""
+            echo "| Metric | Count | % |"
+            echo "|--------|-------|---|"
+            echo "| AI commits | $TOTAL_AI | ${AI_TOTAL_PCT}% |"
+            echo "| Human commits | $TOTAL_HUMAN | ${HUMAN_TOTAL_PCT}% |"
+            echo "| **Total commits** | **$TOTAL_COMMITS** | |"
+            echo ""
+            echo "**PRs:** $PR_COUNT total — $FULL_AI_PRS Full AI, $FULL_HUMAN_PRS Full Human, $MIXED_PRS Mixed"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          echo "Done! Check the Job Summary tab for results."

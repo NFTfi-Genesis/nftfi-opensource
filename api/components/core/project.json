@@ -1,0 +1,19 @@
+{
+  "name": "core",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/core/src",
+  "projectType": "library",
+  "targets": {
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/core/tsconfig.lib.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

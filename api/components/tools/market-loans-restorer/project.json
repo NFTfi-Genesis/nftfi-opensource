@@ -1,0 +1,54 @@
+{
+  "name": "market-loans-restorer",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/tools/market-loans-restorer/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/tools/market-loans-restorer/dist",
+        "main": "components/tools/market-loans-restorer/src/main.ts",
+        "tsConfig": "components/tools/market-loans-restorer/tsconfig.json",
+        "webpackConfig": "components/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "market-loans-restorer:build",
+        "inspect": false,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "market-loans-restorer:build:development"
+        },
+        "production": {
+          "buildTarget": "market-loans-restorer:build:production"
+        }
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/tools/market-loans-restorer/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

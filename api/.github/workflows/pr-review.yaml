@@ -1,0 +1,16 @@
+# .github/workflows/pr-review.yaml
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  actions: read
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  review:
+    uses: NFTfi-Genesis/nftfi.gha-shared-workflows/.github/workflows/pr-review-nftfi.yaml@main
+    secrets: inherit

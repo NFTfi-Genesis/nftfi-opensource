@@ -1,0 +1,54 @@
+{
+  "name": "loan-history-exporter",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "components/tools/loan-history-exporter/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "outputPath": "components/tools/loan-history-exporter/dist",
+        "main": "components/tools/loan-history-exporter/src/main.ts",
+        "tsConfig": "components/tools/loan-history-exporter/tsconfig.json",
+        "webpackConfig": "components/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "esbuildOptions": {
+            "sourcemap": false
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "loan-history-exporter:build",
+        "inspect": false,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "loan-history-exporter:build:development"
+        },
+        "production": {
+          "buildTarget": "loan-history-exporter:build:production"
+        }
+      }
+    },
+    "lint-types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "tsc --noEmit -p components/tools/loan-history-exporter/tsconfig.app.json"
+          }
+        ]
+      }
+    }
+  },
+  "tags": []
+}

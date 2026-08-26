@@ -1,0 +1,25 @@
+/* scrollbar */
+@import 'simplebar-react/dist/simplebar.min.css';
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+/*
+Prevent Dynamic from hiding scrollbar when modal is open.
+Doesn't reproduce locally, only when deployed.
+*/
+body.dynamic-no-scroll {
+  overflow: unset !important;
+}
+html.dynamic-no-scroll {
+  overflow: unset !important;
+}
+
+/* Dynamic connect button styling */
+.dynamic-shadow-dom {
+  --dynamic-connect-button-color: #ffffff;
+  --dynamic-connect-button-color-hover: rgba(255, 255, 255, 0.8);
+  /* --dynamic-connect-button-shadow-hover */
+}

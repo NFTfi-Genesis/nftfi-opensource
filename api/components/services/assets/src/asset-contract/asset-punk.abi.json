@@ -1,0 +1,21 @@
+[
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "punkIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "punkIndexToAddress",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

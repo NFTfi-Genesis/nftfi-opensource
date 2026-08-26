@@ -1,0 +1,20 @@
+[
+  {
+    "inputs": [{ "internalType": "uint32", "name": "_loanId", "type": "uint32" }],
+    "name": "getLoanData",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "address", "name": "loanContract", "type": "address" },
+          { "internalType": "uint64", "name": "smartNftId", "type": "uint64" },
+          { "internalType": "uint8", "name": "status", "type": "uint8" }
+        ],
+        "internalType": "struct ILoanCoordinator.Loan",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

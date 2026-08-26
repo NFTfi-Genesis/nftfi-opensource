@@ -1,0 +1,174 @@
+name: nftfi-api
+version: '3.7'
+
+networks:
+  nftfi:
+    external: true
+
+services:
+  services-base:
+    image: nftfiapi-services-base
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+
+  assets:
+    image: nftfiapi-services-base
+    command: yarn nx serve services-assets
+    depends_on:
+      - services-base
+      - redis
+      - rabbitmq
+      - postgres
+    volumes:
+      - './components:/usr/src/app/components'
+      - './tmp:/usr/src/app/tmp'
+      - '~/.config/gcloud:/root/.config/gcloud'
+    env_file:
+      - components/services/assets/sample.env
+      - components/services/assets/.env
+    ports:
+      - 8110:8080
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    networks:
+      - nftfi
+    profiles:
+      - core
+
+  accounts:
+    image: nftfiapi-services-base
+    command: yarn nx serve services-accounts
+    depends_on:
+      - services-base
+    volumes:
+      - './components:/usr/src/app/components'
+      - '~/.config/gcloud:/root/.config/gcloud'
+    env_file:
+      - components/services/accounts/sample.env
+      - components/services/accounts/.env
+    ports:
+      - 8100:8080
+    networks:
+      - nftfi
+    profiles:
+      - core
+
+  offers:
+    image: nftfiapi-services-base
+    command: yarn nx serve services-offers
+    depends_on:
+      - services-base
+      - redis
+      - rabbitmq
+      - postgres
+    volumes:
+      - './components:/usr/src/app/components'
+      - '~/.config/gcloud:/root/.config/gcloud'
+    env_file:
+      - components/services/offers/sample.env
+      - components/services/offers/.env
+    ports:
+      - 8060:8080
+    networks:
+      - nftfi
+    profiles:
+      - core
+
+  loans:
+    image: nftfiapi-services-base
+    command: yarn nx serve services-loans
+    depends_on:
+      - services-base
+      - redis
+      - rabbitmq
+      - postgres
+    volumes:
+      - './components:/usr/src/app/components'
+      - '~/.config/gcloud:/root/.config/gcloud'
+    env_file:
+      - components/services/loans/sample.env
+      - components/services/loans/.env
+    ports:
+      - 8070:8080
+    networks:
+      - nftfi
+    profiles:
+      - core
+
+  notifications:
+    image: nftfiapi-services-base
+    command: yarn nx serve services-notifications
+    depends_on:
+      - services-base
+      - rabbitmq
+      - mailhog
+    volumes:
+      - './components:/usr/src/app/components'
+      - '~/.config/gcloud:/root/.config/gcloud'
+    env_file:
+      - components/services/notifications/sample.env
+      - components/services/notifications/.env
+    ports:
+      - 8015:8080
+    networks:
+      - nftfi
+    profiles:
+      - core
+
+  api-gateway:
+    image: nginx:1.28.0-alpine
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d/
+    depends_on:
+      - offers
+      - loans
+    ports:
+      - '8080:8080'
+    networks:
+      - nftfi
+    profiles:
+      - core
+
+  postgres:
+    image: postgres:17.6
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin1234
+      POSTGRES_DB: nftfi
+    networks:
+      - nftfi
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./docker/data/postgres:/var/lib/postgresql/data
+
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - ./docker/data/redis:/data
+    ports:
+      - '6389:6379'
+    networks:
+      - nftfi
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    volumes:
+      - ./docker/data/rabbitmq:/var/lib/rabbitmq
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - nftfi
+
+  mailhog:
+    image: mailhog/mailhog
+    volumes:
+      - ./docker/data/mailhog:/data:rw
+    ports:
+      - '1025:1025'
+      - '8025:8025'
