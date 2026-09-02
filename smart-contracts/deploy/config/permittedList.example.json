@@ -1,0 +1,62 @@
+{
+  "NFT": {
+    "deploymentBatch": [
+      {
+        "address": "0x...",
+        "type": "ERC721"
+      },
+      {
+        "address": "0x...",
+        "type": "CryptoKitties"
+      },
+      {
+        "address": "0x...",
+        "type": "ERC1155"
+      },
+      {
+        "address": "0x...",
+        "type": "CryptoPunks"
+      }
+    ],
+    "postDeploymentBatches": [
+      [
+        {
+          "address": "0x...",
+          "type": "ERC721"
+        },
+        {
+          "address": "0x...",
+          "type": "CryptoKitties"
+        },
+        {
+          "address": "0x...",
+          "type": "ERC1155"
+        },
+        {
+          "address": "0x...",
+          "type": "CryptoPunks"
+        }
+      ],
+      [
+        {
+          "address": "0x...",
+          "type": "ERC721"
+        },
+        {
+          "address": "0x...",
+          "type": "CryptoKitties"
+        },
+        {
+          "address": "0x...",
+          "type": "ERC1155"
+        },
+        {
+          "address": "0x...",
+          "type": "CryptoPunks"
+        }
+      ]
+    ]
+  },
+  "ERC20": ["0x...", "0x...", "0x..."],
+  "bundleERC20": ["0x...", "0x...", "0x..."]
+}

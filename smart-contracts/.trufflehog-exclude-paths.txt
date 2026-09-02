@@ -1,0 +1,6 @@
+(^|/)\.git/
+(^|/)node_modules/
+(^|/)artifacts/
+(^|/)cache/
+(^|/)typechain/
+(^|/)lib/forge-std/

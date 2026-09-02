@@ -1,0 +1,8 @@
+{
+  "NFT": {
+    "postDeploymentBatches": [],
+    "deploymentBatch": []
+  },
+  "ERC20": [],
+  "bundleERC20": []
+}

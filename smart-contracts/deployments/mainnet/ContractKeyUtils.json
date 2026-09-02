@@ -1,0 +1,76 @@
+{
+  "address": "0x43cD0b93B7cDF165643D362aC74CED9Ec303Ea33",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_key",
+          "type": "string"
+        }
+      ],
+      "name": "getIdFromStringKey",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "id",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xf9a21963eaab6c16be2c5be3f274e179556343f8ca4b82831b785429f91ed465",
+  "receipt": {
+    "to": null,
+    "from": "0x04b6B89768eB5224C3A488EFD49953d09693578e",
+    "contractAddress": "0x43cD0b93B7cDF165643D362aC74CED9Ec303Ea33",
+    "transactionIndex": 80,
+    "gasUsed": "150690",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x82f86c444842c7ad65ba49171a8e5e203677461b9dce4815880beaaac93ada21",
+    "transactionHash": "0xf9a21963eaab6c16be2c5be3f274e179556343f8ca4b82831b785429f91ed465",
+    "logs": [],
+    "blockNumber": 20835433,
+    "cumulativeGasUsed": "7929266",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_key\",\"type\":\"string\"}],\"name\":\"getIdFromStringKey\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"NFTfi\",\"details\":\"Common library for contract key utils\",\"kind\":\"dev\",\"methods\":{\"getIdFromStringKey(string)\":{\"params\":{\"_key\":\"the string key\"},\"returns\":{\"id\":\"bytes32 representation\"}}},\"title\":\"ContractKeyUtils\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"getIdFromStringKey(string)\":{\"notice\":\"Returns the bytes32 representation of a string\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/utils/ContractKeyUtils.sol\":\"ContractKeyUtils\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"none\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":900},\"remappings\":[]},\"sources\":{\"contracts/utils/ContractKeyUtils.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\n\\npragma solidity 0.8.19;\\n\\n/**\\n * @title ContractKeyUtils\\n * @author NFTfi\\n * @dev Common library for contract key utils\\n */\\nlibrary ContractKeyUtils {\\n    /**\\n     * @notice Returns the bytes32 representation of a string\\n     * @param _key the string key\\n     * @return id bytes32 representation\\n     */\\n    function getIdFromStringKey(string memory _key) public pure returns (bytes32 id) {\\n        // solhint-disable-next-line custom-errors\\n        require(bytes(_key).length <= 32, \\\"invalid key\\\");\\n\\n        // solhint-disable-next-line no-inline-assembly\\n        assembly {\\n            id := mload(add(_key, 32))\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x132d85863f84cf1aa7061ea3ef35a6eafdcc56c6be22efe4370d98939e3cd744\",\"license\":\"BUSL-1.1\"}},\"version\":1}",
+  "bytecode": "0x6101c661003a600b82828239805160001a60731461002d57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600436106100355760003560e01c8063f99a8ffb1461003a575b600080fd5b61004d610048366004610108565b61005f565b60405190815260200160405180910390f35b60006020825111156100d1576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600b60248201527f696e76616c6964206b6579000000000000000000000000000000000000000000604482015260640160405180910390fd5b506020015190565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60006020828403121561011a57600080fd5b813567ffffffffffffffff8082111561013257600080fd5b818401915084601f83011261014657600080fd5b813581811115610158576101586100d9565b604051601f8201601f19908116603f01168101908382118183101715610180576101806100d9565b8160405282815287602084870101111561019957600080fd5b82602086016020830137600092810160200192909252509594505050505056fea164736f6c6343000813000a",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600436106100355760003560e01c8063f99a8ffb1461003a575b600080fd5b61004d610048366004610108565b61005f565b60405190815260200160405180910390f35b60006020825111156100d1576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600b60248201527f696e76616c6964206b6579000000000000000000000000000000000000000000604482015260640160405180910390fd5b506020015190565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60006020828403121561011a57600080fd5b813567ffffffffffffffff8082111561013257600080fd5b818401915084601f83011261014657600080fd5b813581811115610158576101586100d9565b604051601f8201601f19908116603f01168101908382118183101715610180576101806100d9565b8160405282815287602084870101111561019957600080fd5b82602086016020830137600092810160200192909252509594505050505056fea164736f6c6343000813000a",
+  "devdoc": {
+    "author": "NFTfi",
+    "details": "Common library for contract key utils",
+    "kind": "dev",
+    "methods": {
+      "getIdFromStringKey(string)": {
+        "params": {
+          "_key": "the string key"
+        },
+        "returns": {
+          "id": "bytes32 representation"
+        }
+      }
+    },
+    "title": "ContractKeyUtils",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "getIdFromStringKey(string)": {
+        "notice": "Returns the bytes32 representation of a string"
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}

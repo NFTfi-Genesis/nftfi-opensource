@@ -1,0 +1,75 @@
+#vs code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.idea
+
+# Logs
+logs
+cache_forge
+cache_hardhat
+*.log
+
+# Dependency directory
+node_modules
+
+# Generated files
+build
+dist
+bin/
+
+#mac
+.DS_Store
+
+# folders
+.coverage_artifacts/
+.coverage_cache/
+.coverage_contracts/
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+artifacts/
+build/
+cache/
+coverage/
+dist/
+lib/
+!lib/forge-std/
+node_modules/
+typechain/
+deployments/localhost/
+deployments/hardhat/
+deployments/*/
+!deployments/mainnet/
+!deployments/mainnet/**
+docs/contracts/
+docs/uml/
+SUMMARY.md
+slither-report.json
+
+# files
+.env
+.env.*
+*.env
+*.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+keystore/
+*.log
+*.tsbuildinfo
+coverage.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+govSetupConfig.json
+
+# ai
+CLAUDE.md
+docs/ai-notes

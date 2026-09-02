@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 3,
+  "chainId": 1,
+  "network": "ethereum-mainnet",
+  "release": {
+    "protocolVersion": "V3",
+    "snapshotDate": "2026-08-31",
+    "license": "MIT",
+    "provenanceModel": "self-contained-mainnet"
+  },
+  "knownMainnetContracts": {
+    "snapshotDate": "2026-08-31",
+    "contracts": [
+      {
+        "name": "AssetOfferLoanV3",
+        "address": "0x9F10D706D789e4c76A1a6434cd1A9841c875C0A6",
+        "status": "paused",
+        "role": "asset-loan-v3",
+        "expectedPaused": true
+      },
+      {
+        "name": "DirectLoanFixedOfferV2_3",
+        "address": "0xd0a40eB7FD94eE97102BA8e9342243A2b2E22207",
+        "status": "paused-legacy",
+        "role": "asset-loan-v2.3",
+        "expectedPaused": true
+      },
+      {
+        "name": "DirectLoanFixedOfferV2_1",
+        "address": "0x8252Df1d8b29057d1Afe3062bf5a64D503152BC8",
+        "status": "paused-legacy",
+        "role": "asset-loan-v2.1",
+        "expectedPaused": true
+      },
+      {
+        "name": "DirectLoanFixedOfferV2",
+        "address": "0xf896527c49b44aAb3Cf22aE356Fa3AF8E331F280",
+        "status": "paused-legacy",
+        "role": "asset-loan-v2",
+        "expectedPaused": true
+      },
+      {
+        "name": "DirectLoanFixedOfferV1",
+        "address": "0x88341d1a8F672D2780C8dC725902AAe72F143B0c",
+        "status": "paused-legacy",
+        "role": "asset-loan-v1",
+        "expectedPaused": true
+      },
+      {
+        "name": "CollectionOfferLoanV3",
+        "address": "0xB6adEc2ACc851d30d5fB64f3137234BCDCBBad0D",
+        "status": "paused",
+        "role": "collection-loan-v3",
+        "expectedPaused": true
+      },
+      {
+        "name": "DirectLoanFixedCollectionOfferV2_3",
+        "address": "0xD0C6e59B50C32530C627107F50Acc71958C4341F",
+        "status": "paused-legacy",
+        "role": "collection-loan-v2.3",
+        "expectedPaused": true
+      },
+      {
+        "name": "DirectLoanFixedCollectionOfferV2",
+        "address": "0xE52Cec0E90115AbeB3304BaA36bc2655731f7934",
+        "status": "paused-legacy",
+        "role": "collection-loan-v2",
+        "expectedPaused": true
+      },
+      {
+        "name": "Escrow",
+        "address": "0x2ae3e46290AdE43593eabd15642eBD67157f5351",
+        "status": "active",
+        "role": "escrow"
+      },
+      {
+        "name": "ERC20TransferManager",
+        "address": "0x6730697f33d6D2490029b32899E7865c0d902Ca0",
+        "status": "active",
+        "role": "erc20-transfer-manager"
+      },
+      {
+        "name": "LoanCoordinator",
+        "address": "0xA6D93ABC54268Cf849a93e867c129786f04fd2e6",
+        "status": "active",
+        "role": "loan-coordinator"
+      },
+      {
+        "name": "PromissoryNote",
+        "address": "0x77B53beb7f13Bd38de9F76Eed2F2c4F9efff7f4C",
+        "status": "active",
+        "role": "lender-note"
+      },
+      {
+        "name": "ObligationReceipt",
+        "address": "0x48ed998e778Ab2663b6C49Bd09DfFF8Efd16B934",
+        "status": "active",
+        "role": "borrower-note"
+      },
+      {
+        "name": "RefinancingV3",
+        "address": "0x4BC5Fa56f2931E7A37417FA55Dda71E4b7c2f2a3",
+        "status": "paused",
+        "role": "refinancing-v3",
+        "expectedPaused": true
+      },
+      {
+        "name": "RefinancingV3Initial",
+        "address": "0x6701B1D2E6d34727c0C37cDBd0cF421d3357DD0c",
+        "status": "paused-legacy",
+        "role": "initial-refinancing",
+        "expectedPaused": true
+      },
+      {
+        "name": "RefinancingV2_3",
+        "address": "0x25fF4B398cD97B5bFBbE68378Aae1F23CBe13bBA",
+        "status": "paused-legacy",
+        "role": "refinancing-v2.3",
+        "expectedPaused": true
+      },
+      {
+        "name": "NftfiBundler",
+        "address": "0x0259119359Bf053ebF42C9807752de6bbb4925f3",
+        "status": "active-external-to-this-deployment-set",
+        "role": "bundle-builder",
+        "expectedPaused": false
+      },
+      {
+        "name": "ImmutableBundler",
+        "address": "0x46C9CFB32627B74F91e0B5ad575c247AEc7e7847",
+        "status": "active-external-to-this-deployment-set",
+        "role": "bundle-sealer",
+        "expectedPaused": false
+      }
+    ]
+  },
+  "packagedDeployments": [
+    {
+      "name": "ArcadeRefinancingAdapter",
+      "category": "refinancing-adapter",
+      "address": "0xB1bc99a61b262D8dB88288dBDf6414F7825B7b35",
+      "deploymentTransaction": "0x67e085f059241972e1bdbd6017da94b3415a7353319703fe9aeb50233b46be28",
+      "deploymentBlock": 23496524,
+      "solcInputHash": "ff18f0dab7626d3e278c66b5af91e222",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/refinancing/refinancingAdapters/ArcadeRefinancingAdapter.sol",
+      "artifact": "deployments/mainnet/ArcadeRefinancingAdapter.json",
+      "compilerInput": "deployments/mainnet/solcInputs/ff18f0dab7626d3e278c66b5af91e222.json"
+    },
+    {
+      "name": "AssetOfferLoan",
+      "category": "loan-core",
+      "address": "0x9F10D706D789e4c76A1a6434cd1A9841c875C0A6",
+      "deploymentTransaction": "0x293eb44c8a6901c9464391d87e62131464b74ebe0a8793ef82e267cc6b070326",
+      "deploymentBlock": 20835442,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/loans/loanTypes/AssetOfferLoan.sol",
+      "artifact": "deployments/mainnet/AssetOfferLoan.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "BlendRefinancingAdapter",
+      "category": "refinancing-adapter",
+      "address": "0x18839d3822068bAf1fd1da6C986B21B1AFaBE740",
+      "deploymentTransaction": "0x436b8c9c009a0eb73e327f6ce17b51de54db3de454175119b8be7667cc550ec4",
+      "deploymentBlock": 23496525,
+      "solcInputHash": "ff18f0dab7626d3e278c66b5af91e222",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/refinancing/refinancingAdapters/BlendRefinancingAdapter.sol",
+      "artifact": "deployments/mainnet/BlendRefinancingAdapter.json",
+      "compilerInput": "deployments/mainnet/solcInputs/ff18f0dab7626d3e278c66b5af91e222.json"
+    },
+    {
+      "name": "CollectionOfferLoan",
+      "category": "loan-core",
+      "address": "0xB6adEc2ACc851d30d5fB64f3137234BCDCBBad0D",
+      "deploymentTransaction": "0xcc6ea1f669a10755f50fb6da0e8137519b79df0d5cf8d3edbd96181bea5860be",
+      "deploymentBlock": 20835443,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/loans/loanTypes/CollectionOfferLoan.sol",
+      "artifact": "deployments/mainnet/CollectionOfferLoan.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "ContractKeys",
+      "category": "library-or-utility",
+      "address": "0xD2092FABa1019ceB00cDAA209dca1d1cc231f3be",
+      "deploymentTransaction": "0x4b72b66a357a6d90ea81e620ecb6c9c77bc749cc749c8b50586af692005e28a4",
+      "deploymentBlock": 20835432,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/utils/ContractKeys.sol",
+      "artifact": "deployments/mainnet/ContractKeys.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "ContractKeyUtils",
+      "category": "library-or-utility",
+      "address": "0x43cD0b93B7cDF165643D362aC74CED9Ec303Ea33",
+      "deploymentTransaction": "0xf9a21963eaab6c16be2c5be3f274e179556343f8ca4b82831b785429f91ed465",
+      "deploymentBlock": 20835433,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/utils/ContractKeyUtils.sol",
+      "artifact": "deployments/mainnet/ContractKeyUtils.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "CryptoKittiesWrapper",
+      "category": "nft-wrapper",
+      "address": "0xF0c05b1aB9150664Bb09a79E7f29d025D4E3D369",
+      "deploymentTransaction": "0x3de1c57c831b408b06d28d2033725d031cb58d092f921df2d24d2af360807865",
+      "deploymentBlock": 19062221,
+      "solcInputHash": "6a433a122138320e8af0b7baaa609789",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/nftTypeRegistry/nftTypes/CryptoKittiesWrapper.sol",
+      "artifact": "deployments/mainnet/CryptoKittiesWrapper.json",
+      "compilerInput": "deployments/mainnet/solcInputs/6a433a122138320e8af0b7baaa609789.json"
+    },
+    {
+      "name": "DelegateCashPlugin",
+      "category": "protocol-support",
+      "address": "0xf7be105003c71bBEdf377FA61855364bcF1F4832",
+      "deploymentTransaction": "0x97268798b1a5d38cb441daa8d9acee695b970e186c114f82a0dade036d536d7d",
+      "deploymentBlock": 20835455,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/escrow/plugins/DelegateCashPlugin.sol",
+      "artifact": "deployments/mainnet/DelegateCashPlugin.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "ERC1155Wrapper",
+      "category": "nft-wrapper",
+      "address": "0x145DeCa785aC671b7F82DD5beA34E42790fa3263",
+      "deploymentTransaction": "0x4df2cdaf7b7edc8b1d9ad4b18599deb350737ef5679c8414062883ea559fb5fa",
+      "deploymentBlock": 19062222,
+      "solcInputHash": "6a433a122138320e8af0b7baaa609789",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/nftTypeRegistry/nftTypes/ERC1155Wrapper.sol",
+      "artifact": "deployments/mainnet/ERC1155Wrapper.json",
+      "compilerInput": "deployments/mainnet/solcInputs/6a433a122138320e8af0b7baaa609789.json"
+    },
+    {
+      "name": "ERC20TransferManager",
+      "category": "protocol-support",
+      "address": "0x6730697f33d6D2490029b32899E7865c0d902Ca0",
+      "deploymentTransaction": "0xa028836c8930e2470515e22d27ff03858985f278ac0850b392a482aeea2b4503",
+      "deploymentBlock": 20835439,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/ERC20TransferManager.sol",
+      "artifact": "deployments/mainnet/ERC20TransferManager.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "ERC721LegacyWrapper",
+      "category": "nft-wrapper",
+      "address": "0xEdc4Df53cB9eDdD954dE94C0F1f33A7E065E5b12",
+      "deploymentTransaction": "0x54d74394f73aeb66cd4b2583ddf091df2e586a1ac636a11a4c3f7c1b0bf041db",
+      "deploymentBlock": 19062223,
+      "solcInputHash": "6a433a122138320e8af0b7baaa609789",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/nftTypeRegistry/nftTypes/ERC721LegacyWrapper.sol",
+      "artifact": "deployments/mainnet/ERC721LegacyWrapper.json",
+      "compilerInput": "deployments/mainnet/solcInputs/6a433a122138320e8af0b7baaa609789.json"
+    },
+    {
+      "name": "ERC721Wrapper",
+      "category": "nft-wrapper",
+      "address": "0xf482890D6a27dA5e6a38E2aE4d6f4B7a0Dda7347",
+      "deploymentTransaction": "0x6d62a8c3d97392c544f9517da0e404ed3321069bde97265cba13d86e4d1cb9b7",
+      "deploymentBlock": 19062220,
+      "solcInputHash": "6a433a122138320e8af0b7baaa609789",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/nftTypeRegistry/nftTypes/ERC721Wrapper.sol",
+      "artifact": "deployments/mainnet/ERC721Wrapper.json",
+      "compilerInput": "deployments/mainnet/solcInputs/6a433a122138320e8af0b7baaa609789.json"
+    },
+    {
+      "name": "Escrow",
+      "category": "escrow",
+      "address": "0x2ae3e46290AdE43593eabd15642eBD67157f5351",
+      "deploymentTransaction": "0xaedf847e8cc5968cdfea6063a866fa0048d1877bae9c625c6151d817f029dc99",
+      "deploymentBlock": 20835436,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/escrow/Escrow.sol",
+      "artifact": "deployments/mainnet/Escrow.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "GondiRefinancingAdapter",
+      "category": "refinancing-adapter",
+      "address": "0x4d72CFB5b8F642dD86cD48Dd8830f74095a52B4C",
+      "deploymentTransaction": "0xd7e400b81025012e694c6132c91f23d7525024fdd918fe88b4433567df68d850",
+      "deploymentBlock": 23496526,
+      "solcInputHash": "ff18f0dab7626d3e278c66b5af91e222",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/refinancing/refinancingAdapters/GondiRefinancingAdapter.sol",
+      "artifact": "deployments/mainnet/GondiRefinancingAdapter.json",
+      "compilerInput": "deployments/mainnet/solcInputs/ff18f0dab7626d3e278c66b5af91e222.json"
+    },
+    {
+      "name": "LegacyNftfiRefinancingAdapterV2_1",
+      "category": "refinancing-adapter",
+      "address": "0xB12dE923960Ae22263A9A5A2d289FFc730fD8A84",
+      "deploymentTransaction": "0x20156c62a21e0b5fc713362478d00c266057bcbb869b6631eba910390c10fcf6",
+      "deploymentBlock": 23496521,
+      "solcInputHash": "ff18f0dab7626d3e278c66b5af91e222",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/refinancing/refinancingAdapters/LegacyNftfiRefinancingAdapterV2_1.sol",
+      "artifact": "deployments/mainnet/LegacyNftfiRefinancingAdapterV2_1.json",
+      "compilerInput": "deployments/mainnet/solcInputs/ff18f0dab7626d3e278c66b5af91e222.json"
+    },
+    {
+      "name": "LegacyNftfiRefinancingAdapterV2_3",
+      "category": "refinancing-adapter",
+      "address": "0x6AC7A393437cCd95e2D9dd47a5bc0A15cFAC202F",
+      "deploymentTransaction": "0x9cca91b99db84b3c03fc3a810be14b3707aa24dd48c1dbc9fd7fb6cd9a470982",
+      "deploymentBlock": 23496523,
+      "solcInputHash": "ff18f0dab7626d3e278c66b5af91e222",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/refinancing/refinancingAdapters/LegacyNftfiRefinancingAdapterV2_3.sol",
+      "artifact": "deployments/mainnet/LegacyNftfiRefinancingAdapterV2_3.json",
+      "compilerInput": "deployments/mainnet/solcInputs/ff18f0dab7626d3e278c66b5af91e222.json"
+    },
+    {
+      "name": "LoanChecksAndCalculations",
+      "category": "library-or-utility",
+      "address": "0x560F32d9A54D6372429827005bD20aef4A63c898",
+      "deploymentTransaction": "0xae399a533b1c8e3a7178d767f097f0bf60be0a1b74ef89f8146b8ef842881261",
+      "deploymentBlock": 20835441,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/loans/loanTypes/LoanChecksAndCalculations.sol",
+      "artifact": "deployments/mainnet/LoanChecksAndCalculations.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "LoanCoordinator",
+      "category": "loan-core",
+      "address": "0xA6D93ABC54268Cf849a93e867c129786f04fd2e6",
+      "deploymentTransaction": "0x9c4c1dd53aa287fea71dc9c03a79f8be737777ffcdc26322d7c70621e76887ad",
+      "deploymentBlock": 20835447,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/loans/LoanCoordinator.sol",
+      "artifact": "deployments/mainnet/LoanCoordinator.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "NFTfiCollectionOfferSigningUtilsContract",
+      "category": "library-or-utility",
+      "address": "0x4ACD7A10CaC29bb7e53627F4236978A808473caB",
+      "deploymentTransaction": "0xb3dd00d0407fb250eb34b023f8da221d8bd1192fc0217e630142d5c0aed07832",
+      "deploymentBlock": 20992644,
+      "solcInputHash": "cdbc1a46e3194a9fe8906be4ba3ca6d0",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/utils/NFTfiCollectionOfferSigningUtilsContract.sol",
+      "artifact": "deployments/mainnet/NFTfiCollectionOfferSigningUtilsContract.json",
+      "compilerInput": "deployments/mainnet/solcInputs/cdbc1a46e3194a9fe8906be4ba3ca6d0.json"
+    },
+    {
+      "name": "NftfiHub",
+      "category": "protocol-support",
+      "address": "0xA7C134E0Ba7295ebbd396a7C6b03a0abFd3bf417",
+      "deploymentTransaction": "0x34fdd87de48a0ebe4f9faae792781b61a4a283c4ba39cdfa46d7e2acca9287fc",
+      "deploymentBlock": 20835434,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/NftfiHub.sol",
+      "artifact": "deployments/mainnet/NftfiHub.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "NftfiRefinancingAdapter",
+      "category": "refinancing-adapter",
+      "address": "0xb2F0Ccc25f6Ffb05a03A2A1C20728455c14C0744",
+      "deploymentTransaction": "0xa12169e183cd74f1cdb4aa4157beb87261ab2724679728d73d9094b2c44b6be6",
+      "deploymentBlock": 23496520,
+      "solcInputHash": "ff18f0dab7626d3e278c66b5af91e222",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/refinancing/refinancingAdapters/NftfiRefinancingAdapter.sol",
+      "artifact": "deployments/mainnet/NftfiRefinancingAdapter.json",
+      "compilerInput": "deployments/mainnet/solcInputs/ff18f0dab7626d3e278c66b5af91e222.json"
+    },
+    {
+      "name": "NFTfiSigningUtils",
+      "category": "library-or-utility",
+      "address": "0xd7220CBE711Aa5cc6DC15dC9dD0Bf6E5FBfe96B1",
+      "deploymentTransaction": "0xf7e3ae8999b4bc46e00a60029fc77f94b1e1b7a0be7cf1df0e73744cdf931bf3",
+      "deploymentBlock": 20835440,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/utils/NFTfiSigningUtils.sol",
+      "artifact": "deployments/mainnet/NFTfiSigningUtils.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "NFTfiSigningUtilsContract",
+      "category": "library-or-utility",
+      "address": "0x898D598B1E929dD77910D296c7524b2Bb8C21889",
+      "deploymentTransaction": "0x6190af589e4aecd13459f9fc5351cc045aba829d58776b18448d9ac582d7f764",
+      "deploymentBlock": 20835444,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/utils/NFTfiSigningUtilsContract.sol",
+      "artifact": "deployments/mainnet/NFTfiSigningUtilsContract.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "ObligationReceipt",
+      "category": "smart-nft",
+      "address": "0x48ed998e778Ab2663b6C49Bd09DfFF8Efd16B934",
+      "deploymentTransaction": "0x7068f70ba419bc02642dfdf9952bb033abc822ca6814a36249ad05e4ca99430b",
+      "deploymentBlock": 20835449,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/smartNft/SmartNft.sol",
+      "artifact": "deployments/mainnet/ObligationReceipt.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "PermittedNFTsAndTypeRegistry",
+      "category": "protocol-support",
+      "address": "0xC4D7226265616Ad4d866033110C17144aCE1af6e",
+      "deploymentTransaction": "0x7b21a879528882afb540488c51ff53ead613f7c68c92d8d24437b9295ceb3ad6",
+      "deploymentBlock": 20835445,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/permittedLists/PermittedNFTsAndTypeRegistry.sol",
+      "artifact": "deployments/mainnet/PermittedNFTsAndTypeRegistry.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "PersonalEscrow",
+      "category": "escrow",
+      "address": "0xC8eB63Ad2541D51712a09F0CCd168B0b67f1A857",
+      "deploymentTransaction": "0xdafb67d816bbaf27ffc569b07f00309dbe09c3828ec86ceb457d246b4b1bab33",
+      "deploymentBlock": 20835437,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/escrow/PersonalEscrow.sol",
+      "artifact": "deployments/mainnet/PersonalEscrow.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "PersonalEscrowFactory",
+      "category": "escrow",
+      "address": "0xE1958e02bE00b9a64A2F0d87f9D823F6c5283d4a",
+      "deploymentTransaction": "0x2370d94b2cd9127cc15361e13b604d8edda0a9a8ae31925c937c2c8e5bfe13f6",
+      "deploymentBlock": 20835438,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/escrow/PersonalEscrowFactory.sol",
+      "artifact": "deployments/mainnet/PersonalEscrowFactory.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "PromissoryNote",
+      "category": "smart-nft",
+      "address": "0x77B53beb7f13Bd38de9F76Eed2F2c4F9efff7f4C",
+      "deploymentTransaction": "0x4aa9c0e462affb5c500bb2392e7168cd08e49efbc464dd24467187eda53b7291",
+      "deploymentBlock": 20835448,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/smartNft/SmartNft.sol",
+      "artifact": "deployments/mainnet/PromissoryNote.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    },
+    {
+      "name": "PunkWrapper",
+      "category": "nft-wrapper",
+      "address": "0x100dd9D062Ed34fba33141C5F901db7a30Aa3c86",
+      "deploymentTransaction": "0x388736b94c1e55de5b48be892998969a39e46252fab0be33b2921fb2b7ffc0ce",
+      "deploymentBlock": 19062224,
+      "solcInputHash": "6a433a122138320e8af0b7baaa609789",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/nftTypeRegistry/nftTypes/PunkWrapper.sol",
+      "artifact": "deployments/mainnet/PunkWrapper.json",
+      "compilerInput": "deployments/mainnet/solcInputs/6a433a122138320e8af0b7baaa609789.json"
+    },
+    {
+      "name": "Refinancing",
+      "category": "refinancing",
+      "address": "0x4BC5Fa56f2931E7A37417FA55Dda71E4b7c2f2a3",
+      "deploymentTransaction": "0x7151812d570f37481915a3b25eebe238134e6296b325ac3d859a7218f4300742",
+      "deploymentBlock": 23496528,
+      "solcInputHash": "ff18f0dab7626d3e278c66b5af91e222",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/refinancing/Refinancing.sol",
+      "artifact": "deployments/mainnet/Refinancing.json",
+      "compilerInput": "deployments/mainnet/solcInputs/ff18f0dab7626d3e278c66b5af91e222.json"
+    },
+    {
+      "name": "SuperRareV1Wrapper",
+      "category": "nft-wrapper",
+      "address": "0x97B6ac36f2336b9780A12bFF3988D92744D7f22B",
+      "deploymentTransaction": "0x34409c283a910938776e9cb17329748cf0829fecfabe0b552e9af412d96f5519",
+      "deploymentBlock": 20835435,
+      "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+      "compilerVersion": "0.8.19+commit.7dd6d404",
+      "compilationTarget": "contracts/nftTypeRegistry/nftTypes/SuperRareV1Wrapper.sol",
+      "artifact": "deployments/mainnet/SuperRareV1Wrapper.json",
+      "compilerInput": "deployments/mainnet/solcInputs/bab281e5640fb4f8a58586b3f548739e.json"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated and dependency directories"
+paths = [
+  '''(^|/)\.git/''',
+  '''(^|/)node_modules/''',
+  '''(^|/)artifacts/''',
+  '''(^|/)cache/''',
+  '''(^|/)typechain/''',
+]
+
+[[allowlists]]
+description = "Public Ethereum addresses stored as linked-library and token metadata"
+regexTarget = "match"
+regexes = [
+  '''(?i)ContractKey(?:s|Utils)"\s*:\s*"0x[a-f0-9]{40}"''',
+  '''(?i)tokenDenomination\s*=\s*'0x[a-f0-9]{40}''',
+]

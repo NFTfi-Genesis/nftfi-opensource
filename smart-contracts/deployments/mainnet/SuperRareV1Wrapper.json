@@ -1,0 +1,188 @@
+{
+  "address": "0x97B6ac36f2336b9780A12bFF3988D92744D7f22B",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "NoApprovalSupported",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "OnlyPushTrasfer",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "approveNFT",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_nftContract",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_nftContract",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "isOwner",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_sender",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_recipient",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_nftContract",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_nftId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferNFT",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x34409c283a910938776e9cb17329748cf0829fecfabe0b552e9af412d96f5519",
+  "receipt": {
+    "to": null,
+    "from": "0x04b6B89768eB5224C3A488EFD49953d09693578e",
+    "contractAddress": "0x97B6ac36f2336b9780A12bFF3988D92744D7f22B",
+    "transactionIndex": 20,
+    "gasUsed": "232774",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xa41d651b1a3a60d1c69cae4ef7cea423630986ba25aacd2bd9aedb68accfa1c3",
+    "transactionHash": "0x34409c283a910938776e9cb17329748cf0829fecfabe0b552e9af412d96f5519",
+    "logs": [],
+    "blockNumber": 20835435,
+    "cumulativeGasUsed": "2477285",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 3,
+  "solcInputHash": "bab281e5640fb4f8a58586b3f548739e",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.19+commit.7dd6d404\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"NoApprovalSupported\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"OnlyPushTrasfer\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"approveNFT\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nftContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nftContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_tokenId\",\"type\":\"uint256\"}],\"name\":\"isOwner\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_recipient\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_nftContract\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_nftId\",\"type\":\"uint256\"}],\"name\":\"transferNFT\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"NFTfi\",\"details\":\"Provides logic to transfer ERC721, uses regular transferFrom instead of safe\",\"kind\":\"dev\",\"methods\":{\"transferNFT(address,address,address,uint256)\":{\"details\":\"Transfers ERC721 `_nftId` handled by the contract `_nftContract` from `_sender` to `_recipient`\",\"params\":{\"_nftContract\":\"- ERC721 contract\",\"_nftId\":\"- ERC721 id\",\"_recipient\":\"- The new owner of the ERC721\",\"_sender\":\"- The current owner of the ERC721\"},\"returns\":{\"_0\":\"true if successfully transferred, false otherwise\"}}},\"title\":\"ERC721LegacyWrapper\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/nftTypeRegistry/nftTypes/SuperRareV1Wrapper.sol\":\"SuperRareV1Wrapper\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"none\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":900},\"remappings\":[]},\"sources\":{\"contracts/interfaces/INftWrapper.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\n\\npragma solidity 0.8.19;\\n\\n/**\\n * @title INftWrapper\\n * @author NFTfi\\n * @dev Interface for NFT Wrappers.\\n */\\ninterface INftWrapper {\\n    function transferNFT(address from, address to, address nftContract, uint256 tokenId) external returns (bool);\\n\\n    function approveNFT(address to, address nftContract, uint256 tokenId) external returns (bool);\\n\\n    function isOwner(address owner, address nftContract, uint256 tokenId) external view returns (bool);\\n\\n    function balanceOf(address owner, address nftContract, uint256 tokenId) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0x5893806ffc6b8dbc12e94e1ee4ee2b0e54a5e46b42e440f2647569b9e0cc003d\",\"license\":\"BUSL-1.1\"},\"contracts/interfaces/ISuperRareV1.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.19;\\n\\n/**\\n * @title ISuperRareV1\\n * @author NFTfi\\n * @dev Test contract with SuperRareV1 ERC721 related functionalities.\\n * Extracted from https://etherscan.io/address/0x41a322b28d0ff354040e2cbc676f0320d8c8850d#code\\n */\\ninterface ISuperRareV1 {\\n    event Transfer(address from, address to, uint256 tokenId);\\n\\n    function balanceOf(address _owner) external view returns (uint256 _balance);\\n    function ownerOf(uint256 _tokenId) external view returns (address _owner);\\n    function transfer(address _to, uint256 _tokenId) external;\\n    function approve(address _to, uint256 _tokenId) external;\\n    function takeOwnership(uint256 _tokenId) external;\\n}\\n\",\"keccak256\":\"0x90ec9dcdafab222c8bfc704e87a5dc4c9ce9106748682a194effb46c81b6f93a\",\"license\":\"BUSL-1.1\"},\"contracts/nftTypeRegistry/nftTypes/SuperRareV1Wrapper.sol\":{\"content\":\"// SPDX-License-Identifier: BUSL-1.1\\npragma solidity 0.8.19;\\n\\nimport {INftWrapper} from \\\"../../interfaces/INftWrapper.sol\\\";\\nimport {ISuperRareV1} from \\\"../../interfaces/ISuperRareV1.sol\\\";\\n\\n/**\\n * @title ERC721LegacyWrapper\\n * @author NFTfi\\n * @dev Provides logic to transfer ERC721, uses regular transferFrom instead of safe\\n */\\ncontract SuperRareV1Wrapper is INftWrapper {\\n    error OnlyPushTrasfer();\\n    error NoApprovalSupported();\\n\\n    /**\\n     * @dev Transfers ERC721 `_nftId` handled by the contract `_nftContract` from `_sender` to `_recipient`\\n     *\\n     * @param _sender - The current owner of the ERC721\\n     * @param _recipient - The new owner of the ERC721\\n     * @param _nftContract - ERC721 contract\\n     * @param _nftId - ERC721 id\\n     *\\n     * @return true if successfully transferred, false otherwise\\n     */\\n    function transferNFT(\\n        address _sender,\\n        address _recipient,\\n        address _nftContract,\\n        uint256 _nftId\\n    ) external override returns (bool) {\\n        if (_sender != address(this)) revert OnlyPushTrasfer();\\n        ISuperRareV1(_nftContract).transfer(_recipient, _nftId);\\n        return true;\\n    }\\n\\n    function approveNFT(address, address, uint256) external pure override returns (bool) {\\n        revert NoApprovalSupported();\\n    }\\n\\n    function isOwner(address _owner, address _nftContract, uint256 _tokenId) public view override returns (bool) {\\n        return ISuperRareV1(_nftContract).ownerOf(_tokenId) == _owner;\\n    }\\n\\n    function balanceOf(\\n        address _owner,\\n        address _nftContract,\\n        uint256 _tokenId\\n    ) external view override returns (uint256) {\\n        if (isOwner(_owner, _nftContract, _tokenId)) {\\n            return 1;\\n        } else {\\n            return 0;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x86c705d4346a38057eb80d52c779d85302f2f0736f4971aadc427f324c53b1fa\",\"license\":\"BUSL-1.1\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610344806100206000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80637336aaf014610051578063b030667114610079578063e93119d91461008c578063f370e8c5146100ad575b600080fd5b61006461005f366004610288565b6100c0565b60405190151581526020015b60405180910390f35b6100646100873660046102c9565b6100f4565b61009f61009a366004610288565b6101be565b604051908152602001610070565b6100646100bb366004610288565b6101e3565b60006040517f2b0a300100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60006001600160a01b0385163014610138576040517fbc69f08600000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6040517fa9059cbb0000000000000000000000000000000000000000000000000000000081526001600160a01b0385811660048301526024820184905284169063a9059cbb90604401600060405180830381600087803b15801561019b57600080fd5b505af11580156101af573d6000803e3d6000fd5b50600198975050505050505050565b60006101cb8484846101e3565b156101d8575060016101dc565b5060005b9392505050565b6000836001600160a01b0316836001600160a01b0316636352211e846040518263ffffffff1660e01b815260040161021d91815260200190565b602060405180830381865afa15801561023a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061025e919061031a565b6001600160a01b031614949350505050565b6001600160a01b038116811461028557600080fd5b50565b60008060006060848603121561029d57600080fd5b83356102a881610270565b925060208401356102b881610270565b929592945050506040919091013590565b600080600080608085870312156102df57600080fd5b84356102ea81610270565b935060208501356102fa81610270565b9250604085013561030a81610270565b9396929550929360600135925050565b60006020828403121561032c57600080fd5b81516101dc8161027056fea164736f6c6343000813000a",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061004c5760003560e01c80637336aaf014610051578063b030667114610079578063e93119d91461008c578063f370e8c5146100ad575b600080fd5b61006461005f366004610288565b6100c0565b60405190151581526020015b60405180910390f35b6100646100873660046102c9565b6100f4565b61009f61009a366004610288565b6101be565b604051908152602001610070565b6100646100bb366004610288565b6101e3565b60006040517f2b0a300100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60006001600160a01b0385163014610138576040517fbc69f08600000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6040517fa9059cbb0000000000000000000000000000000000000000000000000000000081526001600160a01b0385811660048301526024820184905284169063a9059cbb90604401600060405180830381600087803b15801561019b57600080fd5b505af11580156101af573d6000803e3d6000fd5b50600198975050505050505050565b60006101cb8484846101e3565b156101d8575060016101dc565b5060005b9392505050565b6000836001600160a01b0316836001600160a01b0316636352211e846040518263ffffffff1660e01b815260040161021d91815260200190565b602060405180830381865afa15801561023a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061025e919061031a565b6001600160a01b031614949350505050565b6001600160a01b038116811461028557600080fd5b50565b60008060006060848603121561029d57600080fd5b83356102a881610270565b925060208401356102b881610270565b929592945050506040919091013590565b600080600080608085870312156102df57600080fd5b84356102ea81610270565b935060208501356102fa81610270565b9250604085013561030a81610270565b9396929550929360600135925050565b60006020828403121561032c57600080fd5b81516101dc8161027056fea164736f6c6343000813000a",
+  "devdoc": {
+    "author": "NFTfi",
+    "details": "Provides logic to transfer ERC721, uses regular transferFrom instead of safe",
+    "kind": "dev",
+    "methods": {
+      "transferNFT(address,address,address,uint256)": {
+        "details": "Transfers ERC721 `_nftId` handled by the contract `_nftContract` from `_sender` to `_recipient`",
+        "params": {
+          "_nftContract": "- ERC721 contract",
+          "_nftId": "- ERC721 id",
+          "_recipient": "- The new owner of the ERC721",
+          "_sender": "- The current owner of the ERC721"
+        },
+        "returns": {
+          "_0": "true if successfully transferred, false otherwise"
+        }
+      }
+    },
+    "title": "ERC721LegacyWrapper",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [],
+    "types": null
+  }
+}

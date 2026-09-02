@@ -1,0 +1,12 @@
+{
+  "NFT": {
+    "postDeploymentBatches": [],
+    "deploymentBatch": []
+  },
+  "ERC20": [
+    "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
+    "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
+    "0x53844F9577C2334e541Aec7Df7174ECe5dF1fCf0"
+  ],
+  "bundleERC20": []
+}

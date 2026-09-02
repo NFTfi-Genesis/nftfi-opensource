@@ -1,0 +1,57 @@
+{
+  "NFT": {
+    "postDeploymentBatches": [],
+    "deploymentBatch": [
+      {
+        "address": "0x576fe471011F1130342342e1bd539Df6408d8Fd6",
+        "type": "ERC721"
+      },
+      {
+        "address": "0x14d321dF46526fb1c7dF354b2e5B4FFeEF25f69E",
+        "type": "ERC1155"
+      },
+      {
+        "address": "0xb52ED2Dc8EBD49877De57De3f454Fd71b75bc1fD",
+        "type": "ERC1155"
+      },
+      {
+        "address": "0x89F2E3cACF5A664adc75e989Ad9173dD513d6312",
+        "type": "PUNKS"
+      },
+      {
+        "address": "0x88f261e393aBABBD5E2BAED355Fbf9016fbd9b76",
+        "type": "ERC721"
+      },
+      {
+        "address": "0xBC152a04A21E578465b2D39C9b43269622dCC6eD",
+        "type": "ERC721"
+      },
+      {
+        "address": "0x567365911B65E92Dc316b9D19e84a6ad7353d579",
+        "type": "ERC721"
+      },
+      {
+        "address": "0xb52ED2Dc8EBD49877De57De3f454Fd71b75bc1fD",
+        "type": "ERC1155"
+      },
+      {
+        "address": "0x89F2E3cACF5A664adc75e989Ad9173dD513d6312",
+        "type": "PUNKS"
+      },
+      {
+        "address": "0xBC152a04A21E578465b2D39C9b43269622dCC6eD",
+        "type": "ERC721"
+      },
+      {
+        "address": "0x89F2E3cACF5A664adc75e989Ad9173dD513d6312",
+        "type": "PUNKS"
+      }
+    ]
+  },
+  "ERC20": [
+    "0x7b79995e5f793a07bc00c21412e50ecae098e7f9",
+    "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238",
+    "0x53844f9577c2334e541aec7df7174ece5df1fcf0"
+  ],
+  "bundleERC20": []
+}
